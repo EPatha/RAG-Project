@@ -2,7 +2,7 @@
 import time
 from dataclasses import dataclass, asdict
 
-from .generators import ExtractiveGenerator, OllamaGenerator
+from .generators import ExtractiveGenerator, OllamaGenerator, OpenRouterGenerator
 from .ingest import build_chunks
 from .retrievers import BM25Retriever, CrossEncoderReranker, DenseRetriever, HybridRetriever
 
@@ -16,9 +16,11 @@ class Config:
     top_k: int = 4
     rerank: bool = False
     embed_model: str = "intfloat/multilingual-e5-small"
-    llm: str = "ollama"            # ollama | extractive
+    llm: str = "ollama"            # ollama | openrouter | extractive
     ollama_model: str = "qwen2.5:3b"
     ollama_url: str = "http://localhost:11434"
+    openrouter_model: str = "openai/gpt-4o-mini"
+    openrouter_url: str = "https://openrouter.ai/api/v1"
 
     def name(self):
         r = self.retriever + ("+rerank" if self.rerank else "")
@@ -36,8 +38,14 @@ class RAGPipeline:
             raise ValueError(f"No documents found in {cfg.docs_dir}")
         self.retriever = self._build_retriever()
         self.reranker = CrossEncoderReranker() if cfg.rerank else None
-        self.generator = (OllamaGenerator(cfg.ollama_model, cfg.ollama_url)
-                          if cfg.llm == "ollama" else ExtractiveGenerator())
+        if cfg.llm == "ollama":
+            self.generator = OllamaGenerator(cfg.ollama_model, cfg.ollama_url)
+        elif cfg.llm == "openrouter":
+            self.generator = OpenRouterGenerator(cfg.openrouter_model, url=cfg.openrouter_url)
+        elif cfg.llm == "extractive":
+            self.generator = ExtractiveGenerator()
+        else:
+            raise ValueError(f"unknown llm {cfg.llm}")
 
     def _build_retriever(self):
         r = self.cfg.retriever

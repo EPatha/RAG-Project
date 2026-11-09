@@ -2,6 +2,14 @@
 
 Local, open-source RAG pipeline (BM25 / dense / hybrid retrieval, Ollama LLM) with a reproducible evaluation harness.
 
+## Materi pembelajaran dan assessment
+
+Materi Generative AI, LLM, OpenRouter, prompt engineering, diffusion,
+multimodal, RAG, dan evaluasi tersedia di
+[`docs/MATERI_GENERATIVE_AI.md`](docs/MATERI_GENERATIVE_AI.md).
+Paket assessment berisi 50 soal dan 2 essay tersedia di
+[`eval/assessment_50_2_essay.md`](eval/assessment_50_2_essay.md).
+
 ## Layout
 ```
 rag/            ingest.py (PDF/TXT -> chunks), retrievers.py, generators.py, pipeline.py, utils.py
@@ -37,8 +45,12 @@ python evaluate.py --docs data/docs --qa eval/qa.jsonl --generate \
 # 5. report
 python make_report.py --team "Kelompok X" --corpus "Peraturan akademik Univ. Y" --qa eval/qa.jsonl
 
-# 6. demo
+# 6. demo dengan Ollama lokal
 python app.py --docs data/docs --retriever hybrid
+
+# 7. demo dengan OpenRouter (set OPENROUTER_API_KEY terlebih dahulu)
+python app.py --docs data/docs --retriever hybrid --llm openrouter \
+    --openrouter-model openai/gpt-4o-mini
 ```
 Smoke test without models: `python evaluate.py --docs data/sample --qa eval/qa_sample.jsonl --generate --llm extractive --retrievers bm25`
 

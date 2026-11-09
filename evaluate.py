@@ -186,7 +186,7 @@ def main():
     ap.add_argument("--retrievers", nargs="+", default=["none", "bm25", "dense", "hybrid"])
     ap.add_argument("--chunk-size", type=int, default=800)
     ap.add_argument("--top-k", type=int, default=4)
-    ap.add_argument("--llm", default="ollama", choices=["ollama", "extractive"])
+    ap.add_argument("--llm", default="ollama", choices=["ollama", "openrouter", "extractive"])
     ap.add_argument("--model", default="qwen2.5:3b")
     ap.add_argument("--judge", action="store_true")
     ap.add_argument("--judge-model", default=None, help="defaults to --model")

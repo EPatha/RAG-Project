@@ -11,15 +11,17 @@ from rag.pipeline import Config, RAGPipeline
 ap = argparse.ArgumentParser()
 ap.add_argument("--docs", default="data/docs")
 ap.add_argument("--retriever", default="hybrid")
-ap.add_argument("--llm", default="ollama")
+ap.add_argument("--llm", default="ollama", choices=["ollama", "openrouter", "extractive"])
 ap.add_argument("--model", default="qwen2.5:3b")
+ap.add_argument("--openrouter-model", default="openai/gpt-4o-mini")
 ap.add_argument("--chunk-size", type=int, default=800)
 ap.add_argument("--top-k", type=int, default=4)
 ap.add_argument("--port", type=int, default=7860)
 args = ap.parse_args()
 
 pipe = RAGPipeline(Config(docs_dir=args.docs, retriever=args.retriever, llm=args.llm,
-                          ollama_model=args.model, chunk_size=args.chunk_size, top_k=args.top_k))
+                          ollama_model=args.model, openrouter_model=args.openrouter_model,
+                          chunk_size=args.chunk_size, top_k=args.top_k))
 
 
 def ask(question):

@@ -41,6 +41,48 @@ class OllamaGenerator:
         return self.chat(SYSTEM_NO_RAG, question)
 
 
+class OpenRouterGenerator:
+    """OpenAI-compatible generator for OpenRouter's hosted models."""
+
+    def __init__(self, model="openai/gpt-4o-mini", api_key=None,
+                 url="https://openrouter.ai/api/v1", temperature=0.0, timeout=180):
+        import os
+
+        self.model = model
+        self.api_key = api_key or os.getenv("OPENROUTER_API_KEY")
+        self.url = url.rstrip("/")
+        self.temperature = temperature
+        self.timeout = timeout
+        if not self.api_key:
+            raise ValueError("OPENROUTER_API_KEY is required when using the OpenRouter generator")
+
+    def chat(self, system, user, json_mode=False):
+        payload = {
+            "model": self.model,
+            "temperature": self.temperature,
+            "messages": [{"role": "system", "content": system},
+                         {"role": "user", "content": user}],
+        }
+        if json_mode:
+            payload["response_format"] = {"type": "json_object"}
+        headers = {
+            "Authorization": f"Bearer {self.api_key}",
+            "Content-Type": "application/json",
+            "HTTP-Referer": "https://github.com/EPatha/RAG-Project",
+            "X-Title": "RAG Project",
+        }
+        r = requests.post(f"{self.url}/chat/completions", json=payload,
+                          headers=headers, timeout=self.timeout)
+        r.raise_for_status()
+        return r.json()["choices"][0]["message"]["content"].strip()
+
+    def answer(self, question, contexts):
+        if contexts:
+            user = f"Konteks:\n{format_context(contexts)}\n\nPertanyaan: {question}\nJawaban:"
+            return self.chat(SYSTEM_RAG, user)
+        return self.chat(SYSTEM_NO_RAG, question)
+
+
 class ExtractiveGenerator:
     """No-LLM baseline / test double: returns the retrieved sentence most similar to the question."""
 
