@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Tool and model caches
+.cache/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Project-generated outputs
+results/
+evaluation_report.pdf
+eval/qa_draft.jsonl
+
+# Local documents
+data/docs/*
+!data/docs/.gitkeep
+
+# macOS
+.DS_Store

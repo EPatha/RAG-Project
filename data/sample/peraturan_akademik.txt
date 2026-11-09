@@ -1,0 +1,21 @@
+[CONTOH FIKTIF - hanya untuk menguji pipeline. Ganti dengan dokumen peraturan asli kampus Anda.]
+
+PERATURAN AKADEMIK UNIVERSITAS CONTOH
+
+Pasal 1 Beban Studi
+Beban studi program sarjana adalah 144 sistem kredit semester (SKS) yang dapat ditempuh dalam waktu 8 semester dan paling lama 14 semester.
+
+Pasal 2 Kehadiran
+Mahasiswa wajib hadir paling sedikit 75 persen dari total pertemuan kuliah untuk dapat mengikuti ujian akhir semester.
+
+Pasal 3 Cuti Akademik
+Cuti akademik dapat diberikan paling lama dua semester berturut-turut dan tidak dihitung dalam masa studi.
+
+Pasal 4 Penilaian
+Nilai huruf A bernilai 4,00, B bernilai 3,00, C bernilai 2,00, D bernilai 1,00 dan E bernilai 0.
+
+Pasal 5 Kelulusan
+Mahasiswa dinyatakan lulus apabila telah menyelesaikan seluruh beban studi dengan Indeks Prestasi Kumulatif (IPK) minimal 2,00 dan tidak ada nilai E.
+
+Pasal 6 Pengambilan Skripsi
+Skripsi dapat diambil setelah mahasiswa menempuh minimal 110 SKS dengan IPK minimal 2,50.
